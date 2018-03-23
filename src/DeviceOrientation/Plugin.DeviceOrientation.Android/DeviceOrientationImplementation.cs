@@ -116,6 +116,10 @@ namespace Plugin.DeviceOrientation
                     return ScreenOrientation.Landscape;
                 case DeviceOrientations.LandscapeFlipped:
                     return ScreenOrientation.ReverseLandscape;
+				case DeviceOrientations.Portrait | DeviceOrientations.PortraitFlipped:
+					return ScreenOrientation.SensorPortrait;
+				case DeviceOrientations.Landscape | DeviceOrientations.LandscapeFlipped:
+					return ScreenOrientation.SensorLandscape;
                 default:
                     return ScreenOrientation.Unspecified;
             }

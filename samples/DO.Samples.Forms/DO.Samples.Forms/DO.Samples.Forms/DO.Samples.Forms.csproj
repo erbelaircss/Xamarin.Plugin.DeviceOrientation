@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Plugin.DeviceOrientation" Version="1.0.7.1" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\src\DeviceOrientation\Plugin.DeviceOrientation\Plugin.DeviceOrientation.csproj" />
   </ItemGroup>
 
   <ItemGroup>

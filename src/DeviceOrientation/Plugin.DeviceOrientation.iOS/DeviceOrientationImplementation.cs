@@ -30,20 +30,23 @@ namespace Plugin.DeviceOrientation
             get
             {
                 var result = CurrentDeviceOrientation == UIDeviceOrientation.Unknown;
-                switch (_lockedOrientation)
-                {
-                    case DeviceOrientations.Landscape:
-                        result = result || CurrentDeviceOrientation == UIDeviceOrientation.LandscapeRight;
-                        break;
-                    case DeviceOrientations.LandscapeFlipped:
-                        result = result || CurrentDeviceOrientation == UIDeviceOrientation.LandscapeLeft;
-                        break;
-                    case DeviceOrientations.Portrait:
-                        result = result || CurrentDeviceOrientation == UIDeviceOrientation.PortraitUpsideDown;
-                        break;
-                    case DeviceOrientations.PortraitFlipped:
-                        result = result || CurrentDeviceOrientation == UIDeviceOrientation.Portrait;
-                        break;
+				switch (_lockedOrientation)
+				{
+					case DeviceOrientations.Landscape:
+						result = result || CurrentDeviceOrientation == UIDeviceOrientation.LandscapeRight;
+						break;
+					case DeviceOrientations.LandscapeFlipped:
+						result = result || CurrentDeviceOrientation == UIDeviceOrientation.LandscapeLeft;
+						break;
+					case DeviceOrientations.Portrait:
+						result = result || CurrentDeviceOrientation == UIDeviceOrientation.PortraitUpsideDown;
+						break;
+					case DeviceOrientations.PortraitFlipped:
+						result = result || CurrentDeviceOrientation == UIDeviceOrientation.Portrait;
+						break;
+					case DeviceOrientations.Portrait | DeviceOrientations.PortraitFlipped:
+					case DeviceOrientations.Landscape | DeviceOrientations.LandscapeFlipped:
+						break;
                     default:
                         result = true;
                         break;
@@ -120,6 +123,10 @@ namespace Plugin.DeviceOrientation
                     return UIInterfaceOrientationMask.LandscapeRight;
                 case DeviceOrientations.Landscape:
                     return UIInterfaceOrientationMask.LandscapeLeft;
+				case DeviceOrientations.Portrait | DeviceOrientations.PortraitFlipped:
+					return UIInterfaceOrientationMask.Portrait | UIInterfaceOrientationMask.PortraitUpsideDown;
+				case DeviceOrientations.Landscape | DeviceOrientations.LandscapeFlipped:
+					return UIInterfaceOrientationMask.Landscape;
                 default:
                     return UIInterfaceOrientationMask.AllButUpsideDown;
             }
@@ -130,13 +137,15 @@ namespace Plugin.DeviceOrientation
             switch (orientation)
             {
                 case DeviceOrientations.Portrait:
-                    return UIInterfaceOrientation.Portrait;
+				case DeviceOrientations.Portrait | DeviceOrientations.PortraitFlipped:
+					return UIInterfaceOrientation.Portrait;
                 case DeviceOrientations.PortraitFlipped:
                     return UIInterfaceOrientation.PortraitUpsideDown;
-                case DeviceOrientations.LandscapeFlipped:
+				case DeviceOrientations.Landscape:
+				case DeviceOrientations.Landscape | DeviceOrientations.LandscapeFlipped:
+					return UIInterfaceOrientation.LandscapeLeft;
+				case DeviceOrientations.LandscapeFlipped:
                     return UIInterfaceOrientation.LandscapeRight;
-                case DeviceOrientations.Landscape:
-                    return UIInterfaceOrientation.LandscapeLeft;
                 default:
                     return UIInterfaceOrientation.Unknown;
             }
@@ -182,8 +191,10 @@ namespace Plugin.DeviceOrientation
             {
                 case DeviceOrientations.Portrait:
                 case DeviceOrientations.PortraitFlipped:
+				case DeviceOrientations.Portrait | DeviceOrientations.PortraitFlipped:
                     return DeviceOrientations.Portrait;
                 case DeviceOrientations.Landscape:
+				case DeviceOrientations.Landscape | DeviceOrientations.LandscapeFlipped:
                     return DeviceOrientations.LandscapeFlipped;
                 case DeviceOrientations.LandscapeFlipped:
                     return DeviceOrientations.Landscape;

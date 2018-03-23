@@ -59,7 +59,7 @@ namespace Plugin.DeviceOrientation
             }
         }
 
-        public override void LockOrientation(DeviceOrientations orientation)
+        public override void LockOrientation(DeviceOrientations orientation, DeviceOrientations startingOrientation = default(DeviceOrientations))
         {
             var activity = CrossCurrentActivity.Current.Activity;
 

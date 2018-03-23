@@ -17,7 +17,7 @@ namespace Plugin.DeviceOrientation
         public override DeviceOrientations CurrentOrientation =>
             (DeviceOrientations) _displayInformation.CurrentOrientation;
 
-        public override void LockOrientation(DeviceOrientations orientation)
+        public override void LockOrientation(DeviceOrientations orientation, DeviceOrientations startingOrientation = default(DeviceOrientations))
         {
             DisplayInformation.AutoRotationPreferences = (DisplayOrientations) orientation;
         }

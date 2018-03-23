@@ -17,11 +17,12 @@ namespace Plugin.DeviceOrientation.Abstractions
         /// </summary>
         event OrientationChangedEventHandler OrientationChanged;
 
-        /// <summary>
-        ///     Lock orientation in the specified position
-        /// </summary>
-        /// <param name="orientation">Position for lock.</param>
-        void LockOrientation(DeviceOrientations orientation);
+		/// <summary>
+		///     Lock orientation in the specified position
+		/// </summary>
+		/// <param name="orientation">Position for lock.</param>
+		/// <param name="startingOrientation">Starting position after lock.</param>
+		void LockOrientation(DeviceOrientations orientation, DeviceOrientations startingOrientation = default(DeviceOrientations));
 
         /// <summary>
         ///     Unlock orientation

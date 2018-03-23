@@ -62,11 +62,18 @@ namespace Plugin.DeviceOrientation
         public static UIInterfaceOrientationMask SupportedInterfaceOrientations =>
             ConvertToMask(_lockedOrientation);
 
-        public override void LockOrientation(DeviceOrientations orientation)
+        public override void LockOrientation(DeviceOrientations orientation, DeviceOrientations startingOrientation = default(DeviceOrientations))
         {
             _lockedOrientation = orientation;
 
-            SetDeviceOrientation(orientation);
+			if (startingOrientation != default(DeviceOrientations) && startingOrientation != orientation)
+			{
+				SetDeviceOrientation(startingOrientation);
+			}
+			else
+			{
+				SetDeviceOrientation(orientation);
+			}
         }
 
         public override void UnlockOrientation()
